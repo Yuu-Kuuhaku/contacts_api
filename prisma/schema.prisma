@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Contacts {
+  id     String      @id @default(uuid())
+  email  String   @unique
+  name   String
+  Phones Phones[]
+}
+
+model Phones {
+  id     String @id @default(uuid())
+  type   String
+  number String
+
+  Contacts   Contacts? @relation(fields: [contactsId], references: [id])
+  contactsId String?
+}
