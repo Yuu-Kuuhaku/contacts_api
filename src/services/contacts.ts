@@ -2,7 +2,8 @@ import { Phones } from ".prisma/client";
 import { type } from "os";
 import {prisma} from "../infra/prisma";
 
-class Contacts {
+class ContactsService {
+  constructor(){}
   async create({name, email , phones}) {
     console.log(phones)
     return await prisma.contacts.create({
@@ -11,12 +12,7 @@ class Contacts {
         email,
         Phones: {
           createMany: {
-            data: phones.map( (item: Phones ) => {
-              return {
-                type: 'trabalho',
-                number: '7783893943'
-              }
-            })
+            data: phones
           }
         }
       }
@@ -24,4 +20,4 @@ class Contacts {
   }
 }
 
-export { Contacts }
+export default new ContactsService();

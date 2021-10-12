@@ -15,6 +15,7 @@ model Contacts {
   email  String   @unique
   name   String
   Phones Phones[]
+  
 }
 
 model Phones {

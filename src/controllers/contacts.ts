@@ -1,15 +1,8 @@
 import { Request, Response } from "express";
-import { Contacts } from "../services/contacts";
+import  contactsService  from "../services/contacts";
 import * as yup from 'yup';
 
 export default class ContactsControllers {
-
-  private contactsService: Contacts;
-
-  
-  constructor(){
-    this.contactsService = new Contacts();
-  }
 
   async create ( req: Request, res: Response){
     try {
@@ -24,11 +17,12 @@ export default class ContactsControllers {
 
       const body = req.body;
       await schemaContacts.validate(body)
-
-      const contact = await this.contactsService.create(body);
+      console.log(body);
+      const contact = await contactsService.create(body);
       console.log(contact)
-      return contact;
+      res.status(201).json(body);
     } catch (error) {
+      console.log(error);
       res.status(400).json(error)
     }
   }
