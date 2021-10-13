@@ -6,7 +6,6 @@ export default class ContactsControllers {
 
   async create ( req: Request, res: Response){
     try {
-     
       let schemaContacts = yup.object().shape({
         name: yup.string().required("O Campo nome do contato é obrigatório"),
         email: yup.string().required("O Campo e-mail do contato é obrigatório").email("O email informado não é um email valido"),

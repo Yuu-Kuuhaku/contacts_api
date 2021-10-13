@@ -4,7 +4,7 @@ import PhoneControllers from "../controllers/phoneController"
 
 const router = Router();
 const contactsControllers = new ContactControllers();
-const phoneController = new PhoneControllers
+const phoneController = new PhoneControllers();
 router.get('/contacts', contactsControllers.list);
 router.post('/contacts', contactsControllers.create);
 router.get('/contacts/:contactId', contactsControllers.findOne);
