@@ -11,18 +11,27 @@ generator client {
 }
 
 model Contacts {
-  id     String      @id @default(uuid())
+  id     String   @id @default(uuid())
   email  String   @unique
   name   String
   Phones Phones[]
-  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Phones {
-  id     String @id @default(uuid())
-  type   String
-  number String
-
+  id         String @id @default(uuid())
+  type       TypePhone  @default(CELL)
+  number     String
   Contacts   Contacts? @relation(fields: [contactsId], references: [id])
   contactsId String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+
+enum TypePhone {
+  CELL
+  JOB
+  LANDLINE
 }
