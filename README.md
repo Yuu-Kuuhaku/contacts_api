@@ -8,9 +8,7 @@ contacts api developed for college work.
 
 1. Install the dependencies `npm install`
 
-1. Create the .env file in the project root and add the `DATABASE_URL`
-
-  ex: `DATABASE_URL=mysql://user:password@localhost:3306/db-test`
+1. Create the .env file in the project root and add the `DATABASE_URL=mysql://user:password@localhost:3306/db-test`
 
 1. To configure the database tables use the command `npx prisma db push`
 
