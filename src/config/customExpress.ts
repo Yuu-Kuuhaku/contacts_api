@@ -16,7 +16,17 @@ class App {
 
   private middlewares ():void {
     this.express.use(express.json());
-    this.express.use(cors());
+    this.express.use(cors({
+      'origin': '*',
+      'Access-Control-Allow-Credentials': true,
+      'methods': ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
+      'Accept': ['application/json', 'text/plain', '*/*'],
+      'exposedHeaders': ['Content-Length', 'X-Foo', 'X-Bar'],
+      'Access-Control-Allow-Origin': '*',
+
+
+
+    }));
     this.express.use(bodyParser.json());
     this.express.use(router);
   }

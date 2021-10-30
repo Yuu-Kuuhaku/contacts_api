@@ -5,13 +5,12 @@ import {prisma} from "../infra/prisma";
 class ContactsService {
   constructor(){}
 
-  async create({name, email , phones}) {
+  async create({name , phones}) {
     console.log(phones)
     return await prisma.contacts.create({
       data: {
         name,
-        email,
-        Phones: {
+        phones: {
           createMany: {
             data: phones
           }
@@ -20,17 +19,16 @@ class ContactsService {
     })
   }
 
-  async update(contactId, {name, email }){
+  async update(contactId, {name }){
     return await prisma.contacts.update({
       where: {
         id: contactId
       },
       data: {
         name,
-        email
       },
       include:{
-        Phones: true
+        phones: true
       }
     })
   }
@@ -43,7 +41,7 @@ class ContactsService {
         }
       },
       include: {
-        Phones: true
+        phones: true
       },
       orderBy:[
         {
@@ -59,7 +57,7 @@ class ContactsService {
         id: search
       },
       include: {
-        Phones: true
+        phones: true
       }
     })
   }

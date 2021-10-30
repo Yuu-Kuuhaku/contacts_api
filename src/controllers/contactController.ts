@@ -8,7 +8,6 @@ export default class ContactsControllers {
     try {
       let schemaContacts = yup.object().shape({
         name: yup.string().required("O Campo nome do contato é obrigatório"),
-        email: yup.string().required("O Campo e-mail do contato é obrigatório").email("O email informado não é um email valido"),
         phones: yup.array().required("Os campos de telefones são obrigatorios").min( 1,'É necessario ter ao menos um telefone').of(yup.object().shape({
           number: yup.string().required('O Campo numero é obrigatório'),
           type: yup.string().required('O campo tipo do numero é obrigatório').oneOf(["CELL", "JOB", "LANDLINE"], "O tipo de numero enviado não é um tipo reconhecido")

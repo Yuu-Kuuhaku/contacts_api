@@ -10,11 +10,22 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Contacts {
+model Users {
   id     String   @id @default(uuid())
   email  String   @unique
   name   String
-  Phones Phones[]
+  password String
+  contacts Contacts[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Contacts {
+  id     String   @id @default(uuid())
+  name   String
+  users  Users? @relation(fields: [userId] , references:[id])
+  userId String?
+  phones Phones[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
