@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import * as yup from 'yup';
-
 import bcrypt from 'bcrypt'
-
 import userService from "../services/userService";
+import auth from "../middleware/auth"
+import blackListTokenService  from "../services/blackListTokenService";
 
 export default class UserControllers {
 
@@ -180,13 +180,57 @@ export default class UserControllers {
 
         });
       }
+
+      const token = await auth.createToken(user.id);
+      const refreshToken = await auth.createRefreshToken(user.id);
+
       delete user.password
-      res.status(200).json(user);
+      res.status(200).json({user, token, refreshToken});
     } catch (error) {
       console.log(error);
       res.status(400).json(error);
     }
   }
 
+  async refreshToken(req: Request, res: Response) {
+
+    try {
+      const token = req.headers['authorization'];
+
+      const jsonToken = await auth.decodeToken(token);
+      console.log(jsonToken);
+      if(!jsonToken['refresh']) {
+        throw({
+          "errors": [
+            "Token invalido"
+          ],
+          "name": "Users Errors",
+          "message": "Token invalido"
+
+        })
+      }
+
+      const newToken = await auth.createToken( jsonToken["userId"]);
+      const refreshToken = await auth.createRefreshToken(jsonToken["userId"]);
+      console.log(refreshToken)
+      res.status(200).json({ token: newToken, refreshToken});
+
+    } catch (error) {
+      console.log(error);
+      res.status(401).json(error);
+    }
+  }
+
+  // async removeToken ( req: Request, res: Response){
+  //   try {
+  //     const body  = req.body;
+
+  //     const token = await blackListTokenService.findOne( body.refreshToken );
+
+  //   } catch (error) {
+      
+  //   }
+  //   blackListTokenService
+  // }
 }
 

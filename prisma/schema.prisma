@@ -40,6 +40,19 @@ model Phones {
   updatedAt  DateTime @updatedAt
 }
 
+model BlackListToken {
+  id              String @id @default(uuid())
+  token           String
+  expirationDate  DateTime
+  createdAt       DateTime @default(now())
+}
+
+model Token {
+  id              String @id @default(uuid())
+  token           String
+  expirationDate  DateTime
+  createdAt       DateTime @default(now())
+}
 
 enum TypePhone {
   CELL

@@ -35,7 +35,7 @@ class UserService {
     });
   }
 
-  async findOne( search ){
+  async findOne( search  ){
     return await prisma.users.findFirst({
       where: {
         OR: [
