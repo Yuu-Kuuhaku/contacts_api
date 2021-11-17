@@ -14,7 +14,7 @@ router.post('/login', userControllers.login);
 router.get('/refreshtoken', userControllers.refreshToken);
 
 
-router.get('/contacts', auth.verifyAuth, contactsControllers.list);
+router.get('/contacts', auth.verifyAuth,   contactsControllers.list);
 router.post('/contacts', auth.verifyAuth, contactsControllers.create);
 router.get('/contacts/:contactId', auth.verifyAuth, contactsControllers.findOne);
 router.put('/contacts/:contactId', auth.verifyAuth, contactsControllers.update);

@@ -31,7 +31,7 @@ class auth {
 
   async createRefreshToken ( userId ){
     try {
-      const token = await jwt.sign({ userId, refresh: true, issuer: Date.now() }, SECRET, {  expiresIn: 5000 });
+      const token = await jwt.sign({ userId }, SECRET, {  expiresIn: 5000 });
       const decode = jwt.decode(token);
       const tokenSaved = await tokenService.create({token , expirationDate: new Date(decode["exp"] * 1000) })
       return token
